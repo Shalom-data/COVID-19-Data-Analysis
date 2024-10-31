@@ -1,21 +1,21 @@
 # COVID-19 Data Exploration Project
 
-This project explores global COVID-19 data using SQL queries to gain insights into cases, deaths, and vaccination rates. The analysis covers data from January 2020 to April 2021 and leverages SQL Server Management Studio (SSMS) to query, filter, and aggregate data.
+This project explores global COVID-19 data using SQL queries to gain insights into cases, deaths, and vaccination rates. The analysis covers data from `January 2020` to `April 2021` and leverages SQL Server Management Studio (SSMS) to query, filter, and aggregate data.
 
 # Table of Contents
-- Project Overview
-- Dataset Information
-- Queries and Analysis
-   - Global Data Overview
-   - Country-Specific Analysis (Nigeria & United States)
-   - Infection Rates by Country
-   - Death Counts by Continent and Country
-   - Global Death Rates Over Time
-   - Vaccination Analysis
-- Conclusions
-- Indexing and Optimization
-- Technologies Used
-- License
+- [Project Overview](#project-overview)
+- [Dataset Information](#dataset-information)
+- [Queries and Analysis](#queries-and-analysis)
+   - [Global Data Overview](#global-data-overview)
+   - [Country-Specific Analysis](#country-specific-analysis)
+   - [Infection Rates by Country](#infection-rates-by-country)
+   - [Death Counts by Continent and Country](#death-counts-by-continent-and-country)
+   - [Global Death Rates Over Time](#global-death-rates-over-time)
+   - [Vaccination Analysis](#vaccination-analysis)
+- [Conclusions](#conclusions)
+- [Indexing and Optimization](#indexing-and-optimization)
+- [Technologies Used](#technologies-used)
+- [License](#license)
 
 ## Project Overview
 This project explores the COVID-19 pandemic's impact across the world using publicly available data on cases, deaths, and vaccinations. Through various SQL queries, the project analyzes infection and death rates by location, highlights periods of high mortality, and assesses vaccination progress. The analysis covers trends in specific countries like Nigeria and the United States and insights on countries with high infection or vaccination rates.
@@ -25,9 +25,10 @@ Two tables are used for this analysis:
 
 - **CovidDeaths** - Contains information on total cases, new cases, total deaths, and population data.
 - **CovidVaccinations** - Contains data on vaccinations, including new vaccinations per day.
-- The datasets include global data from January 2020 to April 2021.
+- The datasets include global data from `January 2020` to `April 2021`.
 
 ## Queries and Analysis
+
 ### Global Data Overview
 - The initial queries inspect general COVID-19 trends worldwide:
 
@@ -42,11 +43,11 @@ WHERE continent IS NOT NULL;
 ```
 
 
-### Country-Specific Analysis (Nigeria & United States)
+### Country-Specific Analysis
 
 The analysis examines total cases and deaths in *Nigeria* and the *United States*, calculating the death rate percentages. Key insights:
-- Nigeria had a death rate of 1.25% by April 2021.
-- United States reached a death rate of 1.8% by April 2021.
+- Nigeria had a death rate of **1.25%** by April 2021.
+- United States reached a death rate of **1.8%** by April 2021.
   
 ```sql
 SELECT location, date, total_cases, total_deaths,
@@ -60,7 +61,7 @@ ORDER BY location, date;
 ### Infection Rates by Country
 
 The analysis also compares infection rates to population sizes across countries to identify the highest infection rates:
-- Andorra had the highest infection rate (17.13%), followed by Montenegro and Czechia.
+- *Andorra* had the highest infection rate (**17.13%**), followed by *Montenegro* and *Czechia*.
   
 ```sql
 SELECT location, population,
@@ -73,8 +74,8 @@ ORDER BY Infection_rate DESC;
 ```
 
 ### Death Counts by Continent and Country
-To identify the continents and countries most affected by COVID-19, queries analyze total death counts:
-- North America reported the highest death toll among continents.
+To identify the continents and countries most affected by COVID-19, query the total death counts:
+- *North America* reported the highest death toll among continents.
   
 ```sql
 SELECT continent, MAX(CAST(total_deaths AS INT)) AS Highest_death_count
@@ -85,7 +86,8 @@ ORDER BY Highest_death_count DESC;
 ```
 
 ### Global Death Rates Over Time
-Using a timeline of death rates, this section examines periods with elevated mortality. For instance, February 2020 recorded the highest death rate at **29.52%**.
+Using a timeline of death rates, this section examines periods with elevated mortality. For instance:
+- February 2020 recorded the highest death rate at **29.52%**.
 
 ```sql
 SELECT date, SUM(new_cases) AS Total_cases,
@@ -99,7 +101,7 @@ ORDER BY Global_Death_Percentage DESC;
 
 ### Vaccination Analysis
 This segment explores vaccination rates across countries by calculating the cumulative sum of vaccinations over time:
-- Gibraltar and Israel showed vaccination rates exceeding 100%, likely due to input errors or re-vaccinations.
+- *Gibraltar* and *Israel* showed vaccination rates exceeding 100%, likely due to input errors or re-vaccinations.
 The cumulative vaccination rate required temporary tables to optimize calculations.
 
 ```sql
@@ -131,7 +133,7 @@ This analysis has provided a snapshot of the pandemic's impact globally and in s
 - High vaccination rates, sometimes exceeding 100% in certain areas.
   
 ## Indexing and Optimization
-Indexes were added on location and date columns in both tables to improve query performance.
+Indexes were added on `location` and `date` columns in both tables to improve query performance.
 
 ```sql
 CREATE INDEX idx_deaths ON CovidDeaths(location, date);
